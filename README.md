@@ -1,7 +1,9 @@
 
-# Nearby 2024 🚀
+<p align="center">
+  <img src=".github/video-app.gif" alt="Demonstração" width="250"/>
+</p>
 
-![Demonstração](.github/video-app.gif)
+# Nearby 2024 🚀
 
 Projeto desenvolvido durante o evento **NLW Pocket** da **Rocketseat**.  
 O Nearby é uma aplicação que conecta pessoas a locais e serviços próximos de forma prática e eficiente.
