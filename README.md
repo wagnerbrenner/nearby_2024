@@ -2,7 +2,7 @@
 # Nearby 2024 🚀
 
 <p align="center">
-  <video src=".github/demo.mp4" controls="controls" width="100%" height="auto">
+  <video src=".github/video-app.mp4" controls="controls" width="100%" height="auto">
     Your browser does not support the video tag.
   </video>
 </p>
