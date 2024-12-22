@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, View } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
 import { api } from "@/services/api";
 
@@ -7,7 +8,15 @@ import { Categories, CategoriesProps } from "@/components/categories";
 import { PlaceProps } from "@/components/place";
 import { Places } from "@/components/places";
 
-type MarketsProps = PlaceProps;
+type MarketsProps = PlaceProps & {
+  latitude: number;
+  longitude: number;
+};
+
+const currentLocation = {
+  latitude: -23.561187293883442,
+  longitude: -46.656451388116494,
+};
 
 export default function Home() {
   const [categories, setCategories] = useState<CategoriesProps>([]);
@@ -44,7 +53,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    fetchMarkets();
+    if (category) {
+      fetchMarkets();
+    } else {
+      setMarkets([]);
+    }
   }, [category]);
 
   return (
@@ -55,6 +68,38 @@ export default function Home() {
         onSelect={setCategory}
       />
 
+      <MapView
+        key={category}
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker
+          identifier="current"
+          coordinate={{
+            latitude: currentLocation.latitude,
+            longitude: currentLocation.longitude,
+          }}
+          image={require("@/assets/location.png")}
+          title="Você está aqui"
+          description="Sua localização atual"
+        />
+        {markets.map((market) => (
+          <Marker
+            key={market.id}
+            coordinate={{
+              latitude: market.latitude,
+              longitude: market.longitude,
+            }}
+            title={market.name}
+            description={market.address}
+          />
+        ))}
+      </MapView>
       <Places data={markets} />
     </View>
   );
